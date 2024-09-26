@@ -22,23 +22,23 @@ import edu.eci.arsw.blueprints.persistence.Filter;
  */
 @Service
 public class BlueprintsServices {
-   
+
     @Autowired
     @Qualifier(value = "inMemoryBluePrintPersistence")
     BlueprintsPersistence bpp;
 
     @Autowired
     FilterServices filter;
-    
+
     public void addNewBlueprint(Blueprint bp){
         try {
             bpp.saveBlueprint(bp);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Adding Error.");
         }
-        
+
     }
-    
+
     public Set<Blueprint> getAllBlueprints(){
         Set<Blueprint> blueprints;
         try {
@@ -47,11 +47,11 @@ public class BlueprintsServices {
             throw new UnsupportedOperationException("Getting Error.");
         }
         return blueprints;
-    
+
     }
-    
+
     /**
-     * 
+     *
      * @param author blueprint's author
      * @param name blueprint's name
      * @return the blueprint of the given name created by the given author
@@ -60,12 +60,12 @@ public class BlueprintsServices {
     public Blueprint getBlueprint(String author,String name) throws BlueprintNotFoundException{
         Blueprint blueprint;
         blueprint = bpp.getBlueprint(author, name);
-        filter.applyFilter(blueprint);
+        filter.filter(blueprint);
         return blueprint;
     }
-    
+
     /**
-     * 
+     *
      * @param author blueprint's author
      * @return all the blueprints of the given author
      * @throws BlueprintNotFoundException if the given author doesn't exist
@@ -74,12 +74,10 @@ public class BlueprintsServices {
         Set<Blueprint> blueprints = bpp.getBlueprintsByAuthor(author);
         Set<Blueprint> blueprintsFiltered = new HashSet<>();
         for(Blueprint bp: blueprints){
-            filter.applyFilter(bp);
+            filter.filter(bp);
             blueprintsFiltered.add(bp);
         }
         return blueprintsFiltered;
     }
-        
-}
-    
 
+}

@@ -10,7 +10,7 @@ package edu.eci.arsw.blueprints.model;
  * @author hcadavid
  */
 public class Point {
-   
+
     private int x;
     private int y;
 
@@ -23,10 +23,10 @@ public class Point {
     public String toString() {
         return "Point(" + x + ", " + y + ")";
     }
-    
+
     public Point() {
-    }    
-    
+    }
+
     public int getX() {
         return x;
     }
@@ -41,5 +41,5 @@ public class Point {
 
     public void setY(int y) {
         this.y = y;
-    }     
+    }
 }
