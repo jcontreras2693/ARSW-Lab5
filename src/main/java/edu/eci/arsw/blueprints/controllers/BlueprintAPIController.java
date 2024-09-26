@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/blueprints")
 public class BlueprintAPIController {
-    private BlueprintsServices blueprintsServices;
+    private final BlueprintsServices blueprintsServices;
     @Autowired
     public BlueprintAPIController(BlueprintsServices blueprintsServices){
         this.blueprintsServices =  blueprintsServices;
