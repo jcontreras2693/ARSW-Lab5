@@ -89,7 +89,8 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
  	
 	}
 	```	
-
+ 
+![](img/media/parte2_1.png)
 
 2.  Para probar que el recurso ‘planos’ acepta e interpreta
     correctamente las peticiones POST, use el comando curl de Unix. Este

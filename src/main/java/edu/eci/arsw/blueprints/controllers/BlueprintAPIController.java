@@ -5,10 +5,7 @@ import edu.eci.arsw.blueprints.services.BlueprintsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
@@ -47,6 +44,17 @@ public class BlueprintAPIController {
             return new ResponseEntity<>(bp, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Maneja el POST para crear un nuevo plano
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorPostRecursoXX(@RequestBody Blueprint bp) {
+        try {
+            blueprintsServices.addNewBlueprint(bp);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
         }
     }
 
