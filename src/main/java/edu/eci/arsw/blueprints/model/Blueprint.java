@@ -91,4 +91,7 @@ public class Blueprint {
         this.points = newPoints;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
 }
