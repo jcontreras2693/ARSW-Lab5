@@ -1,6 +1,8 @@
 package edu.eci.arsw.blueprints.controllers;
 
 import edu.eci.arsw.blueprints.model.Blueprint;
+import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
+import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.services.BlueprintsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +30,7 @@ public class BlueprintAPIController {
                 return new ResponseEntity<>("AUTHOR NOT FOUND", HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(bp, HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (BlueprintNotFoundException e) {
             return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -42,7 +44,7 @@ public class BlueprintAPIController {
                 return new ResponseEntity<>("BLUEPRINT NOT FOUND", HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(bp, HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (BlueprintNotFoundException e) {
             return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -52,8 +54,8 @@ public class BlueprintAPIController {
     public ResponseEntity<?> manejadorPostRecursoXX(@RequestBody Blueprint bp) {
         try {
             blueprintsServices.addNewBlueprint(bp);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.CREATED, HttpStatus.OK);
+        } catch (BlueprintPersistenceException e) {
             return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
         }
     }
@@ -61,6 +63,10 @@ public class BlueprintAPIController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetRecursoXX() {
         // Obtener todos los datos que se enviarán a través del API
-        return new ResponseEntity<>(blueprintsServices.getAllBlueprints(), HttpStatus.ACCEPTED);
+        try {
+            return new ResponseEntity<>(blueprintsServices.getAllBlueprints(), HttpStatus.ACCEPTED);
+        } catch (BlueprintNotFoundException e) {
+            return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
+        }
     }
 }

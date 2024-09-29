@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
+import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
 import edu.eci.arsw.blueprints.persistence.Filter;
 /**
@@ -30,22 +31,13 @@ public class BlueprintsServices {
     @Autowired
     FilterServices filter;
 
-    public void addNewBlueprint(Blueprint bp){
-        try {
-            bpp.saveBlueprint(bp);
-        } catch (Exception e) {
-            throw new UnsupportedOperationException("Adding Error.");
-        }
-
+    public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException{
+        bpp.saveBlueprint(bp);
     }
 
-    public Set<Blueprint> getAllBlueprints(){
+    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException{
         Set<Blueprint> blueprints;
-        try {
-            blueprints = bpp.getAllBlueprints();
-        } catch (Exception e) {
-            throw new UnsupportedOperationException("Getting Error.");
-        }
+        blueprints = bpp.getAllBlueprints();
         return blueprints;
 
     }
