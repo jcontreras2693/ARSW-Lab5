@@ -116,6 +116,9 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 
 4. Agregue soporte al verbo PUT para los recursos de la forma '/blueprints/{author}/{bpname}', de manera que sea posible actualizar un plano determinado.
 
+![](img/media/parte2.4.1.png)
+![](img/media/parte2.4.2.png)
+![](img/media/parte2.4.3.png)
 
 ### Parte III
 
