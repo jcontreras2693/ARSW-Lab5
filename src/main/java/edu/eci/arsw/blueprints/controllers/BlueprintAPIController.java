@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -63,23 +64,11 @@ public class BlueprintAPIController {
         }
     }
 
-
-    /*//Maneja el PUT para actualizar un nuevo plano
-    @RequestMapping(value = "/{author}/{blueprint}", method = RequestMethod.PUT)
-    public ResponseEntity<?> manejadorPostRecursoXX(@PathVariable("author") String autor, @PathVariable("blueprint") String blueprint, @RequestBody Blueprint bp) {
-        try {
-            blueprintsServices.updateBlueprint(autor, blueprint, bp);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (BlueprintNotFoundException e) {
-            return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
-        }
-    }*/
-
     //Maneja el PUT para actualizar un nuevo plano
     @RequestMapping(value = "/{author}/{blueprint}", method = RequestMethod.PUT)
-    public ResponseEntity<?> manejadorPostRecursoXX(@PathVariable("author") String autor, @PathVariable("blueprint") String blueprint, @RequestBody Blueprint bp) {
+    public ResponseEntity<?> manejadorPostRecursoXX(@PathVariable("author") String autor, @PathVariable("blueprint") String blueprint, @RequestBody List<Point> points) {
         try {
-            blueprintsServices.updateBlueprint(autor, blueprint, bp);
+            blueprintsServices.updateBlueprint(autor, blueprint, points);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (BlueprintNotFoundException e) {
             return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
