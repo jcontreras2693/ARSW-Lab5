@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +22,15 @@ public class BlueprintAPIController {
     @Autowired
     public BlueprintAPIController(BlueprintsServices blueprintsServices) {
         this.blueprintsServices = blueprintsServices;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetBlueprints(){
+        try {
+            return new ResponseEntity<>(blueprintsServices.getAllBlueprints(),HttpStatus.ACCEPTED);
+        } catch ( BlueprintNotFoundException ex) {
+            return new ResponseEntity<>("BLUEPRINTS NOT FOUND",HttpStatus.NOT_FOUND);
+        }        
     }
 
     // Maneja el GET para obtener los planos de un autor específico
@@ -74,4 +82,5 @@ public class BlueprintAPIController {
             return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
         }
     }
+
 }
