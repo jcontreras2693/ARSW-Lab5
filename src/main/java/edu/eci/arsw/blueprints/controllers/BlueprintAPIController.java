@@ -24,6 +24,10 @@ public class BlueprintAPIController {
         this.blueprintsServices = blueprintsServices;
     }
 
+    /**
+     * Retorna todos los planos creados.
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetBlueprints(){
         try {
@@ -33,7 +37,11 @@ public class BlueprintAPIController {
         }        
     }
 
-    // Maneja el GET para obtener los planos de un autor específico
+    /**
+     * Retorna todos los planos del autor. 
+     * @param autor
+     * @return
+     */
     @RequestMapping(value = "/{author}", method = RequestMethod.GET)
     public ResponseEntity<?> obtenerPlanosPorAutor(@PathVariable("author") String autor) {
         try {
@@ -47,9 +55,14 @@ public class BlueprintAPIController {
         }
     }
 
-    // Maneja el GET para obtener los planos de un autor por nombre de autor y plano
+    /**
+     * Retorna los planos por autor y nombre.
+     * @param autor
+     * @param blueprint
+     * @return
+     */
     @RequestMapping(value = "/{author}/{blueprint}", method = RequestMethod.GET)
-    public ResponseEntity<?> obtenerPlanosPorAutorPlano(@PathVariable("author") String autor, @PathVariable("blueprint") String blueprint) {
+    public ResponseEntity<?> obtenerPlanoPorAutorYNombre(@PathVariable("author") String autor, @PathVariable("blueprint") String blueprint) {
         try {
             Blueprint bp = blueprintsServices.getBlueprint(autor, blueprint);
             if (bp.equals(null)) {
@@ -61,7 +74,11 @@ public class BlueprintAPIController {
         }
     }
 
-    // Maneja el POST para crear un nuevo plano
+    /**
+     * Crea un nuevo plano.
+     * @param bp
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostRecursoAñadirBlueprint(@RequestBody Blueprint bp) {
         try {
@@ -72,7 +89,13 @@ public class BlueprintAPIController {
         }
     }
 
-    //Maneja el PUT para actualizar un nuevo plano
+    /**
+     * Actualiza los puntos del plano indicado.
+     * @param autor
+     * @param blueprint
+     * @param points
+     * @return
+     */
     @RequestMapping(value = "/{author}/{blueprint}", method = RequestMethod.PUT)
     public ResponseEntity<?> manejadorPostRecursoXX(@PathVariable("author") String autor, @PathVariable("blueprint") String blueprint, @RequestBody List<Point> points) {
         try {

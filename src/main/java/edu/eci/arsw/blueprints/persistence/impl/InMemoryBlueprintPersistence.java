@@ -12,6 +12,7 @@ import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -79,4 +80,11 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
         return authorBlueprints;
     }
 
+    @Override
+    public void updateBlueprint(String author, String name, List<Point> points) throws BlueprintNotFoundException {
+        Blueprint bpToUpdate = getBlueprint(author, name);
+        bpToUpdate.setPoints(points);
+    }
+
+    
 }

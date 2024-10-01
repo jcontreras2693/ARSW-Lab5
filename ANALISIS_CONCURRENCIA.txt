@@ -2,7 +2,14 @@ Parte III
 * ¿Qué condiciones de carrera se podrían presentar?
     - Al crear un recurso si no se controla el acceso se pueden perder las peticiones.
     - Al actualizar un recurso se podrían presentar condiciones de carrera al intentar modificar el mismo objeto.
+    - Al leer un recurso mientras este se modifica al mismo tiempo **(este se evitara solucionar puesto que afectaría gravemente el rendimiento).
 
 * ¿Cuales son las respectivas regiones críticas?
-    - La función addBlueprint() en BLueprintServices
-    - La función updateBLueprint() en BlueprintServices
+    - El método addBlueprint() en BLueprintServices.
+    - El método updateBLueprint() en BlueprintServices.
+    - En BlueprintServices se esta inyectando la persistencia inMemoryBluePrintPersistence, esta clase contiene condieiciones de carrera en los siguientes
+      métodos.
+      - saveBlueprint()
+      - getBlueprint(), getAllBlueprints(), getBlueprintsByAuthor,  ** 
+      - updateBLueprint();
+       
