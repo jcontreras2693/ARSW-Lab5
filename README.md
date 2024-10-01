@@ -115,7 +115,8 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 	curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" http://localhost:8080/blueprints -d "{\"author\":\"Andres\", \"points\":[{\"x\": 20, \"y\":10}, {\"x\": 15, \"y\": 100}], \"name\": \"bpGym\"}"
 	```
 
-![](img/media/parte2_2.png)
+![](img/media/parte2_2.1.png)
+![](img/media/parte2_2.2.png)
 
 3. Teniendo en cuenta el autor y numbre del plano registrado, verifique que el mismo se pueda obtener mediante una petición GET al recurso '/blueprints/{author}/{bpname}' correspondiente.
 
