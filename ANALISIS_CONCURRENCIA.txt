@@ -18,4 +18,9 @@ Parte III
     los metodos sincronicos que ofrece esta coleccion tanto para saveBlueprint() como para updateBLueprint(). Para las consultas se plantea evitar usar metodos
     que bloqueen completamente la colección.
 
+    ConcurrentHashMap: Esta será la coleccion concurrente usada, que tiene el beneficio (como en la api de java menciona) de: todas las operaciones son a prueba de 
+    Sin embargo, a pesar de que todas las operaciones son a prueba de subprocesos, las operaciones de recuperación no implican bloqueo, y no hay ningún soporte para bloquear
+    toda la tabla de una manera que impida todo acceso.
+
+
        

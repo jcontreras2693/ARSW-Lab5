@@ -15,10 +15,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.ObjectError;
 
 /**
  *
@@ -29,7 +31,7 @@ import org.springframework.stereotype.Service;
 @Qualifier("inMemoryBluePrintPersistence")
 public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
 
-    private final Map<Tuple<String, String>, Blueprint> blueprints = new HashMap<>();
+    private final ConcurrentHashMap<Tuple<String, String>, Blueprint> blueprints = new ConcurrentHashMap<>();
 
     public InMemoryBlueprintPersistence() {
         // load stub data
@@ -48,10 +50,9 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
 
     @Override
     public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
-        if (blueprints.containsKey(new Tuple<>(bp.getAuthor(), bp.getName()))) {
+        Object result = blueprints.putIfAbsent(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+        if(result == null){
             throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
-        } else {
-            blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
         }
     }
 
@@ -83,7 +84,8 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
     @Override
     public void updateBlueprint(String author, String name, List<Point> points) throws BlueprintNotFoundException {
         Blueprint bpToUpdate = getBlueprint(author, name);
-        bpToUpdate.setPoints(points);
-        
+        synchronized(bpToUpdate){
+            bpToUpdate.setPoints(points);  
+        }     
     }  
-}
+} 
