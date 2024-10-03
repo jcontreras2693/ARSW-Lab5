@@ -51,7 +51,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
     @Override
     public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
         Object result = blueprints.putIfAbsent(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
-        if(result == null){
+        if(!(result == null)){
             throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
         }
     }
